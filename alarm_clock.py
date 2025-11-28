@@ -56,7 +56,7 @@ print("Time: ", get_CT())
 print("-" * 30)
 alarm_time = input("Enter time in 'HH:MM:SS AM/PM' format: ")
 while True:
-    print(f"Current time-- {get_CT()}", end="\r")
+    print(f"Current time is.. {get_CT()}", end="\r")
     if check_alarm(alarm_time):
         print("\nWake up!")
         source = play_audio("audio/mixkit-classic-alarm-995.wav")
