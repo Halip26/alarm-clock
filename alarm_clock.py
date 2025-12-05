@@ -16,7 +16,10 @@ def get_date():
 
 
 def hour12_format(time_str):
-    return datetime.strptime(time_str, "%I:%M:%S %p").strftime("%I:%M:%S %p")
+    twelvehour_format = datetime.strptime(time_str, "%I:%M:%S %p").strftime(
+        "%I:%M:%S %p"
+    )
+    return twelvehour_format
 
 
 def check_alarm(alarm_time):
@@ -26,10 +29,10 @@ def check_alarm(alarm_time):
     return False
 
 
-# Function to play audio using PyAudio
-def play_audio(file):
-    chunk = 1024
-    wf = wave.open(file, "rb")
+# Main function to play audio using Pyaudio
+def main(audio_file):
+    size = 1024
+    wf = wave.open(audio_file, "rb")
     p = pyaudio.PyAudio()
 
     stream = p.open(
@@ -39,11 +42,11 @@ def play_audio(file):
         output=True,
     )
 
-    data = wf.readframes(chunk)
+    data = wf.readframes(size)
 
     while data:
         stream.write(data)
-        data = wf.readframes(chunk)
+        data = wf.readframes(size)
 
     stream.stop_stream()
     stream.close()
@@ -59,6 +62,6 @@ while True:
     print(f"Current time is.. {get_CT()}", end="\r")
     if check_alarm(alarm_time):
         print("\nWake up!")
-        source = play_audio("audio/mixkit-classic-alarm-995.wav")
+        source = main("audio/alarm-995.wav")
         break
     time.sleep(1)
